@@ -110,7 +110,8 @@ meta:
     precision: 0.5
 ```
 
-== Attribute Data Types {#data-types}
+[[data-types]]
+== Attribute Data Types
 
 The following types are supported for attributes:
 
