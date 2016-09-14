@@ -7,6 +7,8 @@
     3.  [The LensKit Data Model](basics/data-model.md)
     4.  [Connecting to Data](basics/data-access.md)
     5.  [Libraries](basics/libraries.md)
+3.  [Reference](reference/index.md)
+    1.  [Data Manifests](reference/data-manifest.adoc)
 
 {% if false %}
 3.  [Evaluating Recommenders](evaluator/index.md)

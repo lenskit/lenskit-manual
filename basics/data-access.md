@@ -32,7 +32,10 @@ items:
   columns: [id, name]
 ~~~
 
-This describes a data source that reads ratings from `ratings.csv`, using the default column layout for ratings (`user,item,rating,timestamp`), and movie IDs and titles (`name`s) from `movies.csv`.
+This describes a data source that reads ratings from `ratings.csv`, using the default column layout
+for ratings (`user,item,rating,timestamp`), and movie IDs and titles (`name`s) from `movies.csv`.
+See the [Data Manifest Specification](../reference/data-manifest.adoc) for more details on manifest
+files.
 
 Once you have such a data source, you can load it:
 
