@@ -8,7 +8,7 @@ Once you have your link:gradle.adoc[script configured] and have link:data.adoc[p
 can actually run a LensKit evaluation over it.  The train-test evaluator takes a set of train-test
 splits, usually produced by the crossfolder, and runs a set of algorithms over them.
 
-Evaluations are controlled by the link:/gradle-docs/index.html?org/lenskit/gradle/TrainTest[TrainTest] Gradle task; you can configure it like so:
+Evaluations are controlled by the link:https://mooc.lenskit.org/gradle-docs/index.html?org/lenskit/gradle/TrainTest[TrainTest] Gradle task; you can configure it like so:
 
 [source,groovy]
 .....

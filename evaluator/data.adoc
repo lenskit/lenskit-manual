@@ -15,7 +15,7 @@ sets for the evaluator.
 
 Cross-validation is supported in LensKit by first cross-folding a data set to produce a set of
 train-test pairs, and then running the link:train-test.html[train-test evaluator] on those data
-sets.  This is supported by the `crossfold` command and the link:/gradle-docs/org/lenskit/gradle/Crossfold.html[Crossfold] Gradle task.
+sets.  This is supported by the `crossfold` command and the link:https://mooc.lenskit.org/gradle-docs/org/lenskit/gradle/Crossfold.html[Crossfold] Gradle task.
 
 Here's a quick example of a crossfold task in a Gradle build script:
 
@@ -32,7 +32,7 @@ task crossfold(type: Crossfold, group: 'evaluate') {
 }
 .....
 
-The options supported by the cross-validation process are defined by link:/gradle-docs/org/lenskit/gradle/Crossfold.html[Crossfold]; common ones include:
+The options supported by the cross-validation process are defined by link:https://mooc.lenskit.org/gradle-docs/org/lenskit/gradle/Crossfold.html[Crossfold]; common ones include:
 
 `input`::
 The input data file (its `.yaml` link:../reference/data-manifest.adoc[data manifest]).

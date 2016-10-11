@@ -94,7 +94,7 @@ lenskit {
 }
 .....
 
-See link:/gradle-docs/org/lenskit/gradle/LenskitExtension.html[LenskitExtension] for more details on these options.
+See link:https://mooc.lenskit.org/gradle-docs/org/lenskit/gradle/LenskitExtension.html[LenskitExtension] for more details on these options.
 
 == Further Documentation
 

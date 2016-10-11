@@ -17,3 +17,5 @@
 
 .  link:reference/index.md[Reference]
 .. link:reference/data-manifest.adoc[Data Manifests]
+.. link:https://mooc.lenskit.org/apidocs/[API Javadoc]
+.. link:https://mooc.lenskit.org/gradle-docs/[Gradle plugin GroovyDoc]
