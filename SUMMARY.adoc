@@ -13,7 +13,7 @@
 .. link:evaluator/gradle.adoc[Working with the Gradle Plugin]
 .. link:evaluator/data.adoc[Data Prep and Crossfolding]
 .. link:evaluator/train-test.adoc[Train-Test Evaluations]
-//.. link:evaluator/metrics.adoc[Evaluation Metrics]
+.. link:evaluator/metrics.adoc[Evaluation Metrics]
 
 .  link:reference/index.md[Reference]
 .. link:reference/data-manifest.adoc[Data Manifests]
