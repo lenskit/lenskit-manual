@@ -13,6 +13,6 @@
 . link:evaluator/index.md[Evaluating Recommenders]
 .. link:evaluator/quickstart.adoc[Getting Started]
 .. link:evaluator/gradle.adoc[Working with the Gradle Plugin]
-.. link:evaluator/data.adoc[Preparing Data]
-.. link:evaluator/train-test.adoc[Evaluating the Recommender]
+.. link:evaluator/data.adoc[Data Prep and Crossfolding]
+.. link:evaluator/train-test.adoc[Train-Test Evaluations]
 //.. link:evaluator/metrics.adoc[Evaluation Metrics]
