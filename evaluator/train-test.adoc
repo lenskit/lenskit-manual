@@ -2,17 +2,16 @@
 title: Running Train-Test Evaluations
 ---
 
-# Running Train-Test Evaluations
+= Running Train-Test Evaluations
 
-Once you have your [script configured](../gradle/) and have [prepared some data](../crossfold/), you
+Once you have your link:gradle.adoc[script configured] and have link:data.adoc[prepared some data], you
 can actually run a LensKit evaluation over it.  The train-test evaluator takes a set of train-test
 splits, usually produced by the crossfolder, and runs a set of algorithms over them.
 
-Evaluations are controlled by the [TrainTest][] Gradle task; you can configure it like so:
+Evaluations are controlled by the link:/gradle-docs/index.html?org/lenskit/gradle/TrainTest[TrainTest] Gradle task; you can configure it like so:
 
-[TrainTest]: /gradle-docs/index.html?org/lenskit/gradle/TrainTest
-
-~~~groovy
+[source,groovy]
+.....
 /* Run the LensKit evaluation */
 task evaluate(type: TrainTest, group: 'evaluate') {
     description 'Runs the LensKit evaluation.'
@@ -36,52 +35,48 @@ task evaluate(type: TrainTest, group: 'evaluate') {
         metric 'mrr'
     }
 }
-~~~
+.....
 
-## Input Data
+== Input Data
 
 The input data sets for the evaluation are specified using `dataSet` directives.  The common way
-to do this is by mentioning the [Crossfold](../data/#crossfold) task as a `dataSet`; this
+to do this is by mentioning the link:data.adoc#crossfold[Crossfold] task as a `dataSet`; this
 automatically configures the evaluation to run on the train-test pairs produced by the crossfold
 task, and enrolls the crossfold task as a dependency for the train-test task so that Gradle will
 make sure to run them in the correct order.
 
-You can also specify manually-created train-test splits, using any of the [input data formats](../data/#input-data):
+You can also specify manually-created train-test splits, using data manifests:
 
-~~~groovy
+[source,groovy]
+.....
 dataSet {
-    trainSource textFile {
-        // ...
-    }
-    testSource textFile {
-        // ...
-    }
+    trainSource 'train.yml'
+    testSource 'test.yml'
 }
-~~~
+.....
 
-## Output Files
+== Output Files
 
 The output files are specified by the following options:
 
-`outputFile`
-:   The aggregate output file, with one row per combination of data set and algorithm.
+`outputFile`::
+The aggregate output file, with one row per combination of data set and algorithm.
 
-`userOutputFile`
-:   Detailed user-level statistics, such as the RMSE for each test user.  If omitted, no such
-    output is produced.
+`userOutputFile`::
+Detailed user-level statistics, such as the RMSE for each test user.  If omitted, no such output is produced.
 
-The evaluator can also output the predictions and recommendations generated; these options are
-discussed below.
+The evaluator can also output the predictions and recommendations generated; these options are discussed below.
 
-## Algorithms
+== Algorithms
 
 Algorithms are specified using the `algorithm` directive. The algorithms themselves are defined in
 Groovy files, using the [configuration language](../../basics/configuration).  Each algorithm should
 be named:
 
-~~~groovy
+[source,groovy]
+.....
 algorithm 'PersMean', 'algorithms/pers-mean.groovy'
-~~~
+.....
 
 If no name is specified, the name is derived from the file name.
 
@@ -92,7 +87,8 @@ otherwise, each algorithm block defines an algorithm.
 This can be used to implement things like parameter sweeps.  For example, you could write the
 following in a file `item-item-nbr-sweep.groovy`:
 
-~~~groovy
+[source,groovy]
+.....
 for (n in [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 100]) {
     algorithm("ItemItem") {
         bind ItemScorer to ItemItemScorer
@@ -103,30 +99,31 @@ for (n in [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 100]) {
         attributes["NNbrs"] = n
     }
 }
-~~~
+.....
 
 This will define 14 instances of the item-item collaborative filtering algorithm with different
 neighborhood sizes.  You can then use it in your `build.gradle`:
 
-~~~groovy
+[source,groovy]
+.....
 trainTest {
     /* ... options ... */
     // no name is needed when using algorithm blocks
     algorithm 'item-item-nbr-sweep.groovy'
     /* ... more options ... */
 }
-~~~
+.....
 
-The `attributes` map contains *attributes* for each algorithm.  Attributes are included as columns
+The `attributes` map contains _attributes_ for each algorithm.  Attributes are included as columns
 in the evaluator's output files and can be used to distinguish different configurations when
 analyzing the output.  This setup is good for plotting the recommender's performance as a function
 of the neighborhood size.
 
-## Tasks and Metrics
+== Tasks and Metrics
 
 In addition to algorithms and input data, the evaluator needs to know what to measure.  This is
-handled by *evaluation tasks*, each of which can have *metrics*.  The two tasks currently supported
-are *predict*, which attempts to predict the ratings in the test set(s), and *recommend*, which
+handled by _evaluation tasks_, each of which can have _metrics_.  The two tasks currently supported
+are _predict_, which attempts to predict the ratings in the test set(s), and _recommend_, which
 produces recommendations for each test user and compares them against their test ratings.
 
 It usually only makes sense to have one predict task in an evaluation, but multiple recommend tasks
@@ -136,45 +133,39 @@ length, candidate items, etc.
 Each task supports an `outputFile` option that specifies an output file for the raw output
 (recommendations or predictions).  The `metric` directive adds a metric to the task.
 
-### Predict
+=== Predict
 
 The predict task has no additional options other than its [metrics](../metrics/#predict).
 
-### Recommend
+=== Recommend
 
 The recommend task, in addition to [metrics](../metrics/#topn), supports some further options:
 
-listSize
-:   The length of recommendation lists to compute.  Specify -1 to compute unlimited-length lists.
+`listSize`::
+The length of recommendation lists to compute.  Specify -1 to compute unlimited-length lists.
 
-prefix
-:   A prefix to apply to the column headers for the measurements taken in this task.  Useful so that
-    you can apply the same measurements to different recommendation lists.
+`prefix`::
+A prefix to apply to the column headers for the measurements taken in this task.  Useful so that
+you can apply the same measurements to different recommendation lists.
 
-candidateItems
-:   The set of items to use as candidate items for recommendation.  Defaults to `allItems`.
+`candidates`::
+The set of items to use as candidate items for recommendation.  Defaults to `allItems`.
 
-excludeItems
-:   A set of items to exclude from recommendation.  Defaults to `null`, using the default exclude
-    set for the configured recommender; this is typically equivalent to `user.trainItems`, but may
-    be different for custom `ItemRecommender` implementations.
+`exclude`::
+A set of items to exclude from recommendation.  Defaults to `null`, using the default exclude
+set for the configured recommender; this is typically equivalent to `user.trainItems`, but may
+be different for custom `ItemRecommender` implementations.
 
-See [ItemRecommender#recommend(long,int,Set,Set)][recommend] for more details on the relationship
+See link:/apidocs/org/lenskit/api/ItemRecommender.html#recommend-long-int-java.util.Set-java.util.Set-[ItemRecommender#recommend(long,int,Set,Set)] for more details on the relationship
 between the candidate and exclude sets.
 
-Each of the sets is specified as a Groovy expression evaluated in the context of an [item select
-script][select].  The expression has access to information about the tested user as `user`, the
+Each of the sets is specified as a Groovy expression evaluated in the context of an link:/apidocs/org/lenskit/eval/traintest/recommend/ItemSelector.ItemSelectScript.html[item select
+script].  The expression has access to information about the tested user as `user`, the
 set of all item IDs as `allItems`, and some additional helper methods.  Expressions can be used
 to write a variety of interesting selectors; for example, to recommend from the user's test items
 plus 100 random decoys, use a `candidateItems` expression of:
 
-~~~groovy
+[source,groovy]
+.....
 user.testItems + pickRandom(allItems - user.trainItems, 100)
-~~~
-
-[recommend]: /apidocs/org/lenskit/api/ItemRecommender.html#recommend-long-int-java.util.Set-java.util.Set-
-[select]: /apidocs/org/lenskit/eval/traintest/recommend/ItemSelector.ItemSelectScript.html
-
-## Further Reading
-
-- [Metrics](../metrics/)
+.....

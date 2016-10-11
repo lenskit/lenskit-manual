@@ -14,5 +14,5 @@
 .. link:evaluator/quickstart.adoc[Getting Started]
 .. link:evaluator/gradle.adoc[Working with the Gradle Plugin]
 .. link:evaluator/data.adoc[Preparing Data]
-//.. link:evaluator/train-test.adoc[Evaluating the Recommender]
+.. link:evaluator/train-test.adoc[Evaluating the Recommender]
 //.. link:evaluator/metrics.adoc[Evaluation Metrics]
