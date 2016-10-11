@@ -4,6 +4,7 @@ title: Evaluator Data Processing
 
 = Data Processing in the Evaluator
 
+
 Before you can run an evaluation, you usually need to perform some pre-processing to the evaluation.
 In LensKit 3, we have separated this out from the main evaluator, so that you can use the output
 of LensKit's data processing in other tools, or use your own code to prepare your train and test
@@ -86,7 +87,7 @@ ratings are split into train and test ratings.  Can be one of:
     Select the _n_ most recent ratings to be test ratings.
 
     holdoutFraction(_f_, _order_):::
-    Select a fraction _f_ ({% math %}0 < f < 1{% endmath %}) of the user's ratings to be test ratings.
+    Select a fraction _f_ (stem:[0 < f < 1]) of the user's ratings to be test ratings.
     _order_ is one of 'random' or 'timestamp', as with *holdout*.
 
     retain(_n_, _order_):::
