@@ -53,7 +53,8 @@ dependencies {
 
 With those pieces in place, the plugin will run and work with the Java code that you have.
 
-== General Configuration {#config}
+[[config]]
+== General Configuration
 
 The Gradle plugin controls LensKit by spawning LensKit http://lenskit.org/documentation/cli/[command line programs].  Each
 of these is run in a separate JVM process.
@@ -95,14 +96,6 @@ lenskit {
 
 See link:/gradle-docs/org/lenskit/gradle/LenskitExtension.html[LenskitExtension] for more details on these options.
 
-== Underlying Details
+== Further Documentation
 
-For sophisticated tasks, such as running a train-test evaluation, the plugin creates a JSON file
-containing a *spec* and then tells the LensKit process to configure itself from that spec.  The
-Gradle tasks automatically pass methods through to configure properties on the corresponding spec.
-
-We provide documentation and examples for many configuration options in these pages.  For exact
-details on the full set of options supported, consult the [Gradle plugin API docs](/gradle-docs/).
-The `Spec` classes define the specifications that get passed to the individual LensKit programs,
-and individual Gradle tasks such as `TrainTest` provide helper methods to make it more convenient
-to configure the evaluation.
+The rest of the Evaluation chapters describe various features of the Gradle plugin and evaluator.  Further, reference documentation for the Gradle tasks is available in the link:/grade-docs/[GroovyDoc] for the plugin.

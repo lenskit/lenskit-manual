@@ -1,3 +1,4 @@
 {
-  "lenskitVersion": "3.0-M1"
+  "lenskitVersion": "3.0-M1",
+  "plugins": ["mathjax"]
 }

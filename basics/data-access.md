@@ -10,7 +10,7 @@ Currently, LensKit provides DAOs that support in-memory storage and reading from
 
 LensKit's data access is all read-only.  LensKit does not provide any facilities for modifying the underlying data; if you need to modify data while LensKit is running, just write the new data directly to the database and provide a LensKit DAO that reads this data.  Prebuilt model components will be out of date with respect to the new data, but many components will take into account the latest data when producing recommendations.
 
-## The Static File Data Source
+## The Static File Data Source {#static}
 
 [StaticDataSource]: /apidocs/org/lenskit/data/dao/file/StaticDataSource.html
 

@@ -1,0 +1,103 @@
+---
+title: Evaluator Data Processing
+---
+
+= Data Processing in the Evaluator
+
+Before you can run an evaluation, you usually need to perform some pre-processing to the evaluation.
+In LensKit 3, we have separated this out from the main evaluator, so that you can use the output
+of LensKit's data processing in other tools, or use your own code to prepare your train and test
+sets for the evaluator.
+
+[[crossfold]]
+== Cross-validating
+
+Cross-validation is supported in LensKit by first cross-folding a data set to produce a set of
+train-test pairs, and then running the link:train-test.html[train-test evaluator] on those data
+sets.  This is supported by the `crossfold` command and the link:/gradle-docs/org/lenskit/gradle/Crossfold.html[Crossfold] Gradle task.
+
+Here's a quick example of a crossfold task in a Gradle build script:
+
+[source,groovy]
+.....
+task crossfold(type: Crossfold, group: 'evaluate') {
+    input 'data/ml-100k.yml'
+    // test on 5 random ratings from each user
+    userPartitionMethod holdout(5, 'random')
+    // use 5-fold cross-validation
+    partitionCount 5
+    // pack data for efficiency
+    outputFormat 'PACK'
+}
+.....
+
+The options supported by the cross-validation process are defined by link:/gradle-docs/org/lenskit/gradle/Crossfold.html[Crossfold]; common ones include:
+
+`input`::
+The input data file (its `.yaml` link:../reference/data-manifest.adoc[data manifest]).
+
+`partitionCount`::
+The number of train-test data splits to produce.
+
+`name`::
+A name for the data set.
+
+`input`::
+The input data; see <<input-data>> for more details.
+
+`outputDir`::
+The output directory; defaults to `${buildDir}/${name}.out`, e.g. `build/crossfold.out`
+
+`outputFormat`::
+The output format; can be one of `CSV`, `CSV_GZ`, `CSV_XZ`, or `PACK`.  If you do not need to
+process the crossfolded output with other software, `PACK` is the most efficient for evaluation.
+
+`method`::
+The cross-folding method.  Can be one of the following:
+
+    `PARTITION_USERS`:::
+    Split the users into `partitionCount` disjoint partitions.  For each partition, produce a
+    train-test split by considering some ratings from the users in that partition to be test
+    ratings, and the remainder of those users' ratings along with all ratings by other users to
+    be the training ratings.
++
+This is the default option.
+
+    `PARTITION_RATINGS`:::
+    Split the ratings into `partitionCount` disjoint partitions.
+
+    `SAMPLE_USERS`:::
+    Select `partitionCount` disjoint sets of users by random sampling.  Produce train and test
+    data as with *PARTITION_USERS*.  This is useful for large data sets where you don't want
+    to test on every user.
+
+`sampleSize`::
+When `method` is *SAMPLE_USERS*, determines how many users are used to prepare testing data
+for each train-test set.
+
+`userPartitionMethod`::
+When `method` is *PARTITION_USERS* or *SAMPLE_USERS*, determines how each test users'
+ratings are split into train and test ratings.  Can be one of:
+
+    holdout(*n*, 'random'):::
+    Select _n_ random ratings to be test ratings, with the remainder used for training.
+
+    holdout(_n_, 'timestamp'):::
+    Select the _n_ most recent ratings to be test ratings.
+
+    holdoutFraction(_f_, _order_):::
+    Select a fraction _f_ ({% math %}0 < f < 1{% endmath %}) of the user's ratings to be test ratings.
+    _order_ is one of 'random' or 'timestamp', as with *holdout*.
+
+    retain(_n_, _order_):::
+    Select _n_ random ratings to be training ratings, with the remainder used for testing.
+    _order_ is one of 'random' (for random _n_ ratings) or 'timestamp' (for the _n_ oldest
+    ratings).
+
+[[input-data]]
+== Specifying Input Data
+
+Several tasks take input data from some data set.  While LensKit can take data from a wide variety
+of sources by implementing custom data access objects, the evaluator currently only supports link:../basics/data-access.md#static[static data sources] using link:../reference/data-manifest.adoc[data manifests].
+
+Configure a data source by specifying the path to its data manifest.
