@@ -7,8 +7,6 @@
 .. link:basics/data-model.md[The LensKit Data Model]
 .. link:basics/data-access.md[Connecting to Data]
 .. link:basics/libraries.md[Libraries]
-.  link:reference/index.md[Reference]
-.. link:reference/data-manifest.adoc[Data Manifests]
 
 . link:evaluator/index.md[Evaluating Recommenders]
 .. link:evaluator/quickstart.adoc[Getting Started]
@@ -16,3 +14,6 @@
 .. link:evaluator/data.adoc[Data Prep and Crossfolding]
 .. link:evaluator/train-test.adoc[Train-Test Evaluations]
 //.. link:evaluator/metrics.adoc[Evaluation Metrics]
+
+.  link:reference/index.md[Reference]
+.. link:reference/data-manifest.adoc[Data Manifests]
