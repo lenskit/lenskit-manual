@@ -1,8 +1,4 @@
----
-title: Evaluator Metrics
----
-
-= Evaluator Metrics
+= Evaluation Metrics
 
 The _predict_ and _recommend_ tasks provided by the link:../train-test/[evaluator] each support
 a variety of recommender systems metrics.

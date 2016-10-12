@@ -1,7 +1,3 @@
----
-title: Evaluator Data Processing
----
-
 = Data Processing in the Evaluator
 
 

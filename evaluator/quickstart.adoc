@@ -1,7 +1,3 @@
----
-title: Experiment Quickstart
----
-
 = Getting Started with the Evaluator
 
 The LensKit evaluator lets you train algorithms over data sets, measure their
@@ -66,7 +62,7 @@ You can then see the results by running
  jupyter notebook
 
 which will open a web browser, and you can choose the `analyze-output.ipynb` notebook.  After running the analysis, it should
-look something like link:analysis.html[this].
+look something like link:quickstart-notebook.html[this].
 
 == What It Does
 

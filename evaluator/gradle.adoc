@@ -1,7 +1,3 @@
----
-title: Using the Gradle Plugin
----
-
 = Using the Gradle Plugin
 
 The Gradle plugin for controlling LensKit evaluation has a number of features.  This page describes

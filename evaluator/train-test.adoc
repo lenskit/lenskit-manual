@@ -1,7 +1,3 @@
----
-title: Running Train-Test Evaluations
----
-
 = Running Train-Test Evaluations
 
 Once you have your link:gradle.adoc[script configured] and have link:data.adoc[prepared some data], you

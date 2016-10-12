@@ -1,7 +1,3 @@
----
-title: Data Manifest Specification
----
-
 = Data Manifest Specification
 
 This document describes the format of data manifests.

@@ -1,8 +1,4 @@
----
-title: Evaluator
----
-
-# Using the LensKit Evaluator
+= Using the LensKit Evaluator
 
 LensKit provides a flexible framework for conducting offline evaluations of
 recommenders. Currently, train-test evaluation of recommender accuracy is supported;
