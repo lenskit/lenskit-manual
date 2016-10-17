@@ -49,12 +49,16 @@ In order to use LensKit, you first need to configure the LensKit algorithm you w
 bind ItemScorer to ItemItemScorer
 // let's use personalized mean rating as the baseline/fallback predictor.
 // 2-step process:
-// First, use the user mean rating as the baseline scorer
-bind (BaselineScorer, ItemScorer) to UserMeanItemScorer
-// Second, use the item mean rating as the base for user means
-bind (UserMeanBaseline, ItemScorer) to ItemMeanRatingItemScorer
+// First, use the user-item bias to compute item scores
+bind (BaselineScorer, ItemScorer) to BiasItemScorer
+// Second, use user-item biases
+bind BiasModel to LiveUserItemBiasModel
 // and normalize ratings by baseline prior to computing similarities
-bind (UserVectorNormalizer) to BaselineSubtractingUserVectorNormalizer
+bind (UserVectorNormalizer) to BiasUserVectorNormalizer
+// little speed tweek
+within (UserVectorNormalizer) {
+    bind Biasmodel to UserItemBiasModel
+}
 ~~~
 
 You can then load that configuration in your Java program:
