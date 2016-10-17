@@ -6,7 +6,7 @@
 .. link:basics/configuration.md[Configuring a Recommender]
 .. link:basics/data-model.md[The LensKit Data Model]
 .. link:basics/data-access.md[Connecting to Data]
-.. link:basics/libraries.md[Libraries]
+.. link:basics/libraries.adoc[Libraries]
 
 . link:evaluator/index.adoc[Evaluating Recommenders]
 .. link:evaluator/quickstart.adoc[Getting Started]

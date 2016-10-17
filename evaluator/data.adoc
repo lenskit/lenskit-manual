@@ -1,5 +1,5 @@
 = Data Processing in the Evaluator
-
+:stem: latexmath
 
 Before you can run an evaluation, you usually need to perform some pre-processing to the evaluation.
 In LensKit 3, we have separated this out from the main evaluator, so that you can use the output
