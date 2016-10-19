@@ -8,6 +8,9 @@
 .. link:basics/data-access.md[Connecting to Data]
 .. link:basics/libraries.adoc[Libraries]
 
+. link:components/index.adoc[Common Components]
+.. link:components/bias-models.adoc[Bias Models]
+
 . link:evaluator/index.adoc[Evaluating Recommenders]
 .. link:evaluator/quickstart.adoc[Getting Started]
 .. link:evaluator/gradle.adoc[Working with the Gradle Plugin]
