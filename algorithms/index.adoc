@@ -1,0 +1,3 @@
+= Algorithms
+
+This chapter describes the algorithm implementations provided by LensKit.
