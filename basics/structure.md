@@ -12,16 +12,16 @@ LensKit has many different interfaces and components, so it can seem a bit hard 
 
 The heart of most LensKit recommender algorithms is the `ItemScorer`.  If you are trying to implement a new algorithm for LensKit, and it's a traditional score-the-items, pick-the-top-*N* recommender, you probably want to implement an `ItemScorer`.
 
-[ItemScorer]: /apidocs/org/lenskit/api/ItemScorer.html
+[ItemScorer]: api:org.lenskit.api.ItemScorer
 
 [ItemScorer][]s provide user-personalized scores for items.  These scores could be anything; they could be predicted ratings, purchase probabilities, TF-IDF cosine similarity between the item and the user's profile, or whatever method the underlying algorithm uses to score algorithms.  The only restriction on the output of an item scorer is that higher scores should be ‘better’ in whatever sense the scorer measures.
 
 ## Predicting Ratings
 
-[RatingPredictor]: /apidocs/org/lenskit/api/RatingPredictor.html
-[SimpleRatingPredictor]: /apidocs/org/lenskit/basic/SimpleRatingPredictor.html
-[PreferenceDomain]: /apidocs/org/lenskit/data/pref/PreferenceDomain.html
-[RatingPredictorItemScorer]: /apidocs/org/lenskit/basic/RatingPredictorItemScorer.html
+[RatingPredictor]: api:org.lenskit.api.RatingPredictor
+[SimpleRatingPredictor]: api:org.lenskit.basic.SimpleRatingPredictor
+[PreferenceDomain]: api:org.lenskit.data.pref.PreferenceDomain
+[RatingPredictorItemScorer]: api:org.lenskit.basic.RatingPredictorItemScorer
 
 If you want to present rating predictions to users, you want use a [RatingPredictor][].  Rating predictors are like scorers (in fact, the API is entirely parallel), but their output is predicted ratings in whatever rating scale you use.  With the `ItemScorer` and `RatingPredictor` interfaces, LensKit breaks the rating prediction task into two pieces.  The `ItemScorer` is responsible for computing some kind of score, and the `RatingPredictor` maps those scores onto the rating range.
 
@@ -35,8 +35,8 @@ If you have a rating predictor and want to use it as an item scorer, the [Rating
 
 ## Top-*N* Recommendation
 
-[ItemRecommender]: /apidocs/org/lenskit/api/ItemRecommender.html
-[TopNItemRecommender]: /apidocs/org/lenskit/basic/TopNItemRecommender.html
+[ItemRecommender]: api:org.lenskit.api.ItemRecommender
+[TopNItemRecommender]: api:org.lenskit.basic.TopNItemRecommender
 
 The [ItemRecommender][] interface provides Top-*N* recommendation.  Given a user ID, it produces lists of recommended items.
 
@@ -53,16 +53,16 @@ The interfaces are:
 - [ItemBasedItemScorer][] computes basket-relative item scores.
 - [ItemBasedItemRecommender][] computes basket-relative recommendations.
 
-[ItemBasedItemScorer]: /apidocs/org/lenskit/api/ItemBasedItemScorer.html
-[ItemBasedItemScorer]: /apidocs/org/lenskit/api/ItemBasedItemScorer.html
+[ItemBasedItemScorer]: api:org.lenskit.api.ItemBasedItemScorer
+[ItemBasedItemRecommender]: api:org.lenskit.api.ItemBasedItemRecommender
 
 ## Wiring Up Recommenders
 
 LensKit uses *dependency injection* to configure its algorithms.  This allows algorithms to be very modular and flexible, but means there are quite a few moving parts.  Most implementations of the interfaces described in this page depend on additional components defined by further interfaces.  These interface implementations can also be selected; this is how you can configure the item-item collaborative filter to operate with different notions of item similarity, for example.
 
-When you read the JavaDoc for a LensKit component, such as [ItemItemScorer](/apidocs/org/lenskit/knn/item/ItemItemScorer.html), you will often see a constructor with the `@Inject` annotation.  This constructor is used by LensKit to instantiate the component, and its parameters are *dependencies*.  These dependencies can often be configured, and implementations of them may have additional dependencies of their own.
+When you read the JavaDoc for a LensKit component, such as [ItemItemScorer](api:org.lenskit.knn.item.ItemItemScorer), you will often see a constructor with the `@Inject` annotation.  This constructor is used by LensKit to instantiate the component, and its parameters are *dependencies*.  These dependencies can often be configured, and implementations of them may have additional dependencies of their own.
 
-Some components, such as [ItemItemModel](/apidocs/org/lenskit/knn/item/model/ItemItemModel.html), have a `@DefaultProvider` annotation.  This instructs LensKit that instances of the component can be obtained by first instantiating the specified provider class, then calling its `get()` method to obtain the actual component instance.
+Some components, such as [ItemItemModel](api:org.lenskit.knn.item.model,ItemItemModel), have a `@DefaultProvider` annotation.  This instructs LensKit that instances of the component can be obtained by first instantiating the specified provider class, then calling its `get()` method to obtain the actual component instance.
 
 ## Internal Components
 
