@@ -1,0 +1,105 @@
+= Bias Models
+:stem: latexmath
+
+LensKit's _bias models_ represent gobal, user, and item biases, used for item scoring and normalization.
+The general form of a bias model, realized by the link:api:org.lenskit.bias.BiasModel[BiasModel] interface and its implementations, is to define a bias stem:[b_{ui}] as follows:
+
+[stem]
+++++
+b_{ui} = b + b_i + b_u
+++++
+
+This decomposes a user-item baseline score into a global bias stem:[b] (the `getIntercept()` method of `BiasModel`), an item bias stem:[b_i] (`getItemBias(i)`), and a user bias stem:[b_u] (`getUserBias(u)`).  Unknown items and users are assumed to have biases of 0, so that computations with bias models cleanly fall back to assuming users and items are average.
+
+LensKit provides several different ways of computing bias models.
+
+== Biases in Rating Data
+
+When working with rating data, the standard bias model is to compute user and item mean ratings:
+
+[stem]
+++++
+\begin{align*}
+b_{ui} & = b + b_i + b_u \\
+b & = \mu = \frac{\sum_{r_{ui} \in R} r_{ui}}{|R|} \\
+b_i & = \frac{\sum_{r_{ui} \in R_i} (r_{ui} - \mu)}{|R_i|} \\
+b_u & = \frac{\sum_{r_{ui} \in R_u} (r_{ui} - b_i)}{|R_u|}
+\end{align*}
+++++
+
+We compute stem:[b_i] before stem:[b_u] because, in typical systems with more users than items, item biases tend to be more stable than user biases.
+
+== Bias implementations
+
+LensKit provides several bias model implementations, along with providers that compute them from rating data.  You can implement your own provider to compute them from other types of data.
+
+Most of these implementations are precomputed: they do *not* update based on rating data added since the model was built.
+
+=== Global Bias Only
+
+The global bias model computes only a global bias; it sets stem:[b_u=b_i=0] for all users and items.  To use the global bias model computed over ratings, use the following configuration:
+
+[[source,groovy]]
+.....
+bind BiasModel to GlobalBiasModel
+.....
+
+Alternatively, you can bind directly to the provider: 
+
+[[source,groovy]]
+.....
+bind BiasModel toProvider GlobalAverageRatingBiasModelProvider
+.....
+
+=== Item Bias Only
+
+The item-only bias model, `ItemBiasModel`, computes the global bias stem:[b] and item biases stem:[b_i], but leaves user biases set to 0.  To use:
+
+[[source,groovy]]
+.....
+bind BiasModel to ItemBiasModel
+.....
+
+Or bind to the provider: 
+
+[[source,groovy]]
+.....
+bind BiasModel toProvider ItemAverageRatingBiasModelProvider
+.....
+
+=== User Bias Only
+
+The user-only bias model `UserBiasModel` (and its associated provider `UserAverageRatingBiasModelProvider`) is like the item bias model, but only computes global and per-user biases.
+
+== User-Item Bias
+
+The complete bias model is implemented by `UserItemBiasModel`, and computed by `UserItemAverageRatingBiasModelProvider`.  To use:
+
+[[source,groovy]]
+....
+bind BiasModel to UserItemBiasModel
+....
+
+== Live User Bias
+
+The bias model `LiveUserItemBiasModel` is like `UserItemBiasModel`, except that it computes per-user biases _live_: it retrieves the user's ratings from the data source and computes their bias stem:[b_u].  Per-item biases stem:[b_i] and the global bias stem:[b] are still precomputed.
+
+== Scoring with Biases
+
+The bias model can be directly used to score items:
+
+[[source,groovy]]
+.....
+bind ItemScorer to BiasItemScorer
+bind BiasModel to UserItemBiasModel
+.....
+
+== Normalizing with Biases
+
+Bias models can also be directly used for normalizing user and item vectors:
+
+`BiasUserVectorNormalizer`::
+    Normalizes user vectors (whose keys are item IDs) by subtracting stem:[b_{ui}].
+
+`BiasItemVectorNormalizer`::
+    Normalizes item vectors (whose keys are user IDs) by subtracting stem:[b_{ui}].

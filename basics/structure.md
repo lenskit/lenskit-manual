@@ -87,9 +87,8 @@ Both the rating predictor and the item recommender use the item scorer to genera
 The configuration in the [Getting Started chapter](../getting-started.md#config) tells LensKit to do the following:
 
 -   Use `ItemItemScorer`, the item-item collaborative filter, to compute item scores by making it the primary implementation of `ItemScorer`
--   Use the `UserMeanItemScorer` to compute baseline scores
--   Use the `ItemMeanRatingItemScorer` as the baseline for the user mean scorer, so that the resulting scores are personalized means
--   Normalize user rating vectors by subtracting the baseline score (personalized mean).
+-   Use the `BiasItemScorer` to compute baseline (fallback) item scores using user and item rating biases.
+-   Normalize user rating vectors by subtracting the user/item biases.
 
 You can use different item scorers for prediction and recommendation, using [context-sensitive configuration](../configuration/).
 

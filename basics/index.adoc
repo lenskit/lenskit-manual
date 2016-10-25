@@ -4,10 +4,10 @@ redirect_from:
   - /lenskit-data-sructures/index.html
 ---
 
-# LensKit Basics
+= LensKit Basics
 
 This chapter describes several of the foundational concepts of LensKit:
 
-- Recommender components
-- Recommender configuration
-- The data model and data access layer
+. Recommender components
+. Recommender configuration
+. The data model and data access layer

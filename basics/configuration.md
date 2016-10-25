@@ -72,14 +72,14 @@ To bind in a context, use the `within` method:
 
 ~~~groovy
 within (LiveNeighborFinder) {
-    bind UserVectorNormalizer to BaselineSubtractingUserVectorNormalizer
+    bind UserVectorNormalizer to BiasUserVectorNormalizer
 }
 ~~~
 
 [LiveNeighborFinder]: /apidocs/org/lenskit/knn/user/LiveNeighborFinder.html
 
-This uses the baseline-subtracting normalizer as the vector
-normalizer, but only when building the [LiveNeighborFinder][] or
+This uses the bias model normalizer as the vector normalizer, but only
+when building the [LiveNeighborFinder][] or
 one of its dependencies. It does not configure the normalizer passed
 to the rating predictor — if no other bindings are present, then the
 that is kept at the default.

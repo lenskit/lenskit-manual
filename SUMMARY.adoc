@@ -1,12 +1,15 @@
 = Summary
 
-. link:getting-started.md[Getting Started]
-. link:basics/index.md[Fundamental Concepts]
+. link:getting-started.adoc[Getting Started]
+. link:basics/index.adoc[Fundamental Concepts]
 .. link:basics/structure.md[Structure of a Recommender]
 .. link:basics/configuration.md[Configuring a Recommender]
 .. link:basics/data-model.md[The LensKit Data Model]
 .. link:basics/data-access.md[Connecting to Data]
-.. link:basics/libraries.md[Libraries]
+.. link:basics/libraries.adoc[Libraries]
+
+. link:components/index.adoc[Common Components]
+.. link:components/bias-models.adoc[Bias Models]
 
 . link:evaluator/index.adoc[Evaluating Recommenders]
 .. link:evaluator/quickstart.adoc[Getting Started]

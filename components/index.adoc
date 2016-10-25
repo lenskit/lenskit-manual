@@ -1,0 +1,3 @@
+= Recommender Components
+
+This chapter describes common component types of LensKit recommenders.
