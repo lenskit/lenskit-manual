@@ -1,0 +1,26 @@
+= Baseline Algorithms
+
+LensKit provides several _baseline_ algorithms based on simple computations such as item popularity and link:../components/bias-models.adoc[user/item biases].
+
+== Popular Items
+
+The link:api:org.lenskit.basic.PopularityRankItemScorer[PopularityRankItemScorer] class provides the basic item scoring logic for popularity-based recommendation.  It is implemented as an item scorer so that popularity information can be incorporated into other scorers more easily.
+
+To use it, bind it to the `ItemScorer` interface:
+
+[[source,groovy]]
+.....
+bind ItemScorer to PopularityRankItemScorer
+.....
+
+The scores produced by this scorer are the percentile ranks for each item in the range [0,1], where the most popular item has a rank of 1 and unknown items have a rank of 0.
+
+== Bias Models
+
+LensKit's link:../components/bias-models.adoc[user/item bias models] can be used to compute item scores:
+
+[[source,groovy]]
+.....
+bind ItemScorer to BiasItemScorer
+bind BiasModel to LiveUserItemBiasModel
+.....

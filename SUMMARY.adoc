@@ -11,6 +11,9 @@
 . link:components/index.adoc[Common Components]
 .. link:components/bias-models.adoc[Bias Models]
 
+. link:algorithms/index.adoc[Algorithms]
+.. link:algorithms/baselines.adoc[Baselines]
+
 . link:evaluator/index.adoc[Evaluating Recommenders]
 .. link:evaluator/quickstart.adoc[Getting Started]
 .. link:evaluator/gradle.adoc[Working with the Gradle Plugin]
