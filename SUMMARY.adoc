@@ -24,5 +24,6 @@
 .  link:reference/index.adoc[Reference]
 .. link:reference/data-manifest.adoc[Data Manifests]
 .. link:reference/cli/lenskit.1.adoc[LensKit CLI]
+... link:reference/cli/lenskit-version.1.adoc[`version`]
 .. link:https://mooc.lenskit.org/apidocs/[API Javadoc]
 .. link:https://mooc.lenskit.org/gradle-docs/[Gradle plugin GroovyDoc]
