@@ -1,0 +1,28 @@
+= lenskit-script-environment(7)
+:doctype: manpage
+
+== Name
+
+lenskit-script-environment - configure LensKit script evaluation environment.
+
+== Synposis
+
+Options controlling the Java environment for interpreting LensKit scripts.
+
+== Description
+
+Several subcommands of link:lenskit.1.adoc[*lenskit*(1)] interpret scripts to configure recommenders.  These subcommands support some common options for configuring the Java environment in which these scripts are interpreted; this page documents those options.
+
+== Script Environment Options
+
+*-C* _URL_, *--classpath* _URL_::
+Add _URL_ (which can be a path to a local directory or JAR file) to the classpath for loading the configuration scripts.  This URL can contain additional components for the recommenders. This option can be specified multiple times to add multiple locations to the classpath.
+
+*-D* _PROP_=_VALUE_, *--define* _PROP_=_VALUE_::
+Define the property *PROP* to equal *VALUE*.  These properties will be available in the `properties` object in the interpreted script.  To set Java system properties, use the `JAVA_OPTS` environment variable (see link:lenskit.1.md[lenskit(1)]).
+
+== SEE ALSO
+
+- link:lenskit.1.adoc[*lenskit*(1)]
+
+{% include "footer.adoc" %}

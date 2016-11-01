@@ -1,11 +1,11 @@
-= LENSKIT(1)
+= lenskit(1)
 :doctype: manpage
 
-== NAME
+== Name
 
 lenskit - a command-line tool for LensKit
 
-== SYNOPSIS
+== Synposis
 
 **lenskit** [OPTIONS] *subcommand* [arguments]
 
@@ -19,7 +19,7 @@ The various specific tools are exposed via subcommands, much like **git**(1) and
 The subcommands are listed below (see [Subcommands](#Subcommands)), and each is described in more
 detail in its own manual page.
 
-== OPTIONS
+== Common Options
 
 *--help*::
 Print usage instructions.
@@ -40,7 +40,7 @@ Output INFO (or DEBUG, if `--debug` is also used) logging messages from Grapht. 
 pretty noisy, so by default its output is filtered to warnigns and errors.  If you need to
 debug a problem that is occurring in Grapht, use this option.
 
-== SUBCOMMANDS
+== Subcommands
 
 Each command is documented in its own man page, *lenskit-command*(1).
 
@@ -79,9 +79,9 @@ Also, the following Java system properties can be set for useful effects:
 The location of a Logback configuration file.  This overrides all built-in or command line
 logging configuration (e.g. `--log-file`).
 
-== SEE ALSO
+== See Also
 
--  The LensKit home page: http://lenskit.org
--  The LensKit manual: http://lenskit.org/documentation
+-  The LensKit home page at http://lenskit.org
+-  The LensKit manual at http://lenskit.org/documentation
 
 {% include "./footer.adoc" %}

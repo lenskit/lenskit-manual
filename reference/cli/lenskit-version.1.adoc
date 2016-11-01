@@ -1,21 +1,21 @@
-= LENSKIT-VERSION(1)
+= lenskit-version(1)
 :doctype: manpage
 
-== NAME
+== Name
 
 lenskit-version - print LensKit version info.
 
-== SYNOPSIS
+== Synopsis
 
 *lenskit* [_GLOBAL OPTIONS_] *version*
 
-== DESCRIPTION
+== Description
 
 The *version* command prints the current version of LensKit and exits.
 
 This subcommand takes no arguments.
 
-== SEE ALSO
+== See Also
 
 - link:lenskit.1.adoc[*lenskit*(1)], which describes the global options.
 

@@ -1,4 +1,4 @@
-== PROJECT INFORMATION
+== Project Information
 
 This command is a part of LensKit, an open source recommender systems toolkit
 originally developed by http://grouplens.org[GroupLens Research]. +
