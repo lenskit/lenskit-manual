@@ -2,7 +2,7 @@
 
 . link:getting-started.adoc[Getting Started]
 . link:basics/index.adoc[Fundamental Concepts]
-.. link:basics/structure.md[Structure of a Recommender]
+.. link:basics/structure.adoc[Structure of a Recommender]
 .. link:basics/configuration.md[Configuring a Recommender]
 .. link:basics/data-model.md[The LensKit Data Model]
 .. link:basics/data-access.md[Connecting to Data]
