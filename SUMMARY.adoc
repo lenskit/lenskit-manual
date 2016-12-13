@@ -4,8 +4,8 @@
 . link:basics/index.adoc[Fundamental Concepts]
 .. link:basics/structure.adoc[Structure of a Recommender]
 .. link:basics/configuration.adoc[Configuring a Recommender]
-.. link:basics/data-model.md[The LensKit Data Model]
-.. link:basics/data-access.md[Connecting to Data]
+.. link:basics/data-model.adoc[The LensKit Data Model]
+.. link:basics/data-access.adoc[Connecting to Data]
 .. link:basics/libraries.adoc[Libraries]
 
 . link:components/index.adoc[Common Components]

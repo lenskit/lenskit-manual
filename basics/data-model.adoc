@@ -1,0 +1,87 @@
+= The LensKit Data Model
+
+LensKit has a flexible data model that allows many different kinds of data to be loaded and operated on by algorithms.  This section describes that model.
+
+== Entities
+
+The heart of the LensKit data model is an _entity_, defined by the link:api:org.lenskit.data.entities.Entity[Entity] interface.  An entity is a particular piece of data, consisting of a _type_ (the name of the type of data), an _id_ (of type `long`), and zero or more named _attributes_.
+
+Common entity types, whose type names are defined in link:api:org.lenskit.data.entities.CommonTypes[CommonTypes], include:
+
+user::
+A user in the system
+
+item::
+An item in the system
+
+rating::
+A user-provided rating of an item
+
+Attributes are identified by name, such as *user*; to improve reliability, `Entity` provides a type-safe interface using link:api:org.lenskit.data.entities.TypedName[typed names] that associate a type (such as `Long`) with a name.  link:api:org.lenskit.data.entities.CommonTypes[CommonAttributes] provides constants defining typed names for many common attributes:
+
+`ENTITY_ID`::
+The entity's ID (every entity has this attribute).
+
+`USER_ID`::
+A field (named `user`) storing a user ID associated with an entity.  This is _not_ the user ID on a *user* entity; that is defined by the `ENTITY_ID` attribute of that entity.  Rather, it is used for attributes on _other_ entities that reference users.  For example, *rating* entities have a `USER_ID` attribute that stores the ID of the user who provided the rating.
+
+`ITEM_ID`::
+Like `USER_ID` but references an item.
+
+`RATING`::
+Used to provide the rating value.
+
+`TIMESTAMP`::
+A timestamp associated with an entity that may happen at a particular time, such as a rating.
+
+== Data Access
+
+Data access in LensKit revolves around the data access object interface, link:api:org.lenskit.data.dao.DataAccessObject[DataAccessObject].  This interface provides query access to a database of entities.  It has two primary operations:
+
+- Get the IDs of all entities of a particular type, with `getEntityIds`
+- Query the database for entities of a particular type, possibly matching other conditions, with link:api:org.lenskit.data.dao.DataAccessObject#query-org.lenskit.data.entities.EntityType-[query].
+
+The `query` method exposes a fluent interface for writing and using database queries.  For example, the following query:
+
+[source,java]
+......
+List<Entity> ratings = dao.query(CommonTypes.RATING)
+                          .withAttribute(CommonAttributes.USER_ID, 42L)
+                          .get();
+......
+
+will retrieve all ratings by user 42 as a list.
+
+Other useful methods for queries include:
+
+- `orderBy` specifies a sort order.
+- `groupBy` makes the query entities grouped by a `long` attribute.
+- `stream` returns data as a closable stream instead of a list; with some data sources, this may avoid slurping the entire query results into memory.  Be sure to close your streams, for example with a `try`-with-resources block, to avoid resource exhaustion.
+- `count` counts the results of the query without returning them.
+
+LensKit components depend on the data access object just like they do any other component.
+
+== View Classes
+
+The `Entity` interface is very general, but is not terribly convenient for commonly-used data.  To solve this, LensKit supports _view classes_ that are subtypes of `Entity` and provide Java APIs for the attributes generally associated with a particular type of entity and often optimized storage of its data.
+
+One such class is  link:api:org.lenskit.data.ratings.Rating[Rating].  It exposes the common attributes of a rating entity: user and item IDs, rating value, and timestamp.
+
+To use a view class, pass it to the `asType` query method:
+
+[source,java]
+......
+List<Rating> ratings = dao.query(CommonTypes.RATING)
+                          .asType(Rating.class)
+                          .withAttribute(CommonAttributes.USER_ID, 42L)
+                          .get();
+......
+
+As a shortcut, when retrieving entities of a view class's default type (and the default entity type for `Rating` is `rating`), you can just write:
+
+[source,java]
+......
+List<Rating> ratings = dao.query(Rating.class)
+                          .withAttribute(CommonAttributes.USER_ID, 42L)
+                          .get();
+......
