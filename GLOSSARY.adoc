@@ -1,3 +1,5 @@
+= Glossary
+
 == Component
 
 A single object, defined by a class typically implementing some interface that defines the component's behavior, that forms a portion of a recommender algorithm.

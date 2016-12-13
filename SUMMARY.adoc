@@ -28,3 +28,5 @@
 .. link:reference/cli/lenskit.1.adoc[LensKit CLI]
 ... link:reference/cli/lenskit-script-environment.7.adoc[Script environments]
 ... link:reference/cli/lenskit-version.1.adoc[`version`]
+
+. link:GLOSSARY.adoc[Glossary]
