@@ -19,4 +19,4 @@ This subcommand takes no arguments.
 
 - link:lenskit.1.adoc[*lenskit*(1)], which describes the global options.
 
-{% include "./footer.adoc" %}
+{% include "footer.adoc" %}

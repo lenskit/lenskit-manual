@@ -26,7 +26,10 @@
 .. link:https://mooc.lenskit.org/apidocs/[API Javadoc]
 .. link:https://mooc.lenskit.org/gradle-docs/[Gradle plugin GroovyDoc]
 .. link:reference/cli/lenskit.1.adoc[LensKit CLI]
+... link:reference/cli/lenskit-input-data.7.adoc[Input data]
 ... link:reference/cli/lenskit-script-environment.7.adoc[Script environments]
 ... link:reference/cli/lenskit-version.1.adoc[`version`]
+... link:reference/cli/lenskit-recommend.1.adoc[`recommend`]
+... link:reference/cli/lenskit-train-model.1.adoc[`train-model`]
 
 . link:GLOSSARY.adoc[Glossary]

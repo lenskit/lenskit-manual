@@ -1,0 +1,41 @@
+= lenskit-train-model(1)
+:doctype: manpage
+
+== Name
+
+*lenskit-train-model* - train a LensKit model and write it to disk.
+
+== Synopsis
+
+*lenskit* [_GLOBAL OPTIONS_] *train-model* [_OPTIONS_] _CONFIG_...
+
+== Description
+
+The `train-model` command loads a LensKit algorithm configuration, instantiates its shareable
+components, and writes the resulting recommender engine to a file.  This file can then be loaded
+into an application or one of the other LensKit commands to provide recommendations and predictions.
+
+== Options
+
+_CONFIG_::
+A LensKit algorithm configuration file, written in the LensKit algorithm DSL for Groovy.  If
+multiple configuration files are specified, they are used together, with configuration in later
+files taking precedence over earlier files.
+
+*--help*::
+Show usage help.
+
+*-o* _FILE_, *--output-file* _FILE_::
+Write the resulting recommender model to _FILE_.  If this option is not specified, the model
+will be written to `model.bin` in the current directory.  If _FILE_ ends in `.gz`, the file will
+be gzip-compressed.  Compressed model files can be transparently read by LensKit, so this is
+usually a good idea.
+
+This command also takes the standard link:./lenskit-input-data.7.adoc[input data options]
+and link:./lenskit-script-environment.7.adoc[script environment options].
+
+== See Also
+
+link:lenskit.1.adoc[*lenskit*(1)], link:lenskit-input-data.7.adoc[*lenskit-input-data*(7)], link:lenskit-script-environment.7.adoc[*lenskit-script-environment*(7)].
+
+{% include "footer.adoc" %}

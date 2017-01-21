@@ -1,0 +1,47 @@
+= lenskit-recommend(1)
+:doctype: manpage
+
+== Name
+
+lenskit-recommend - recommend items for users.
+
+== Synopsis
+
+*lenskit* [_GLOBAL OPTIONS_] *recommend* link:#options[[_OPTIONS_]] _USER_...
+
+== Description
+
+The `recommend` command recommends items for some users. It loads a
+recommender from a trained model file and/or LensKit configuration
+scripts and uses the configured algorithm to produce recommendations.
+
+[[options]]
+== Options
+
+_USER_::
+  A user to recommend for.
+*--help*::
+  Show usage help.
+*-n* _N_::
+  Produce _N_ recommendations. The default is 10.
+*-m* _FILE_, *--model-file* _FILE_::
+  Load a trained recommender engine from _FILE_.
+*-c* _SCRIPT_, *--config-file* _SCRIPT_::
+  Configure the recommender using _SCRIPT_. This option can be
+  specified multiple times, and later configurations take precedence
+  over earlier ones. If `--model-file` is also specified, the scripts
+  are used to modify the trained model.
+*--print-channel* _CHAN_::
+  In addition to item scores, also print the value in side channel
+  _CHAN_.
+
+This command also takes the standard link:lenskit-input-data.7.adoc[input
+data options] and link:lenskit-script-environment.7.adoc[script environment
+options].
+
+[[see-also]]
+== See Also
+
+link:lenskit.1.adoc[*lenskit*(1)], link:lenskit-input-data.7.adoc[*lenskit-input-data*(7)], link:lenskit-script-environment.7.adoc[*lenskit-script-environment*(7)]
+
+{% include "footer.adoc" %}
