@@ -9,7 +9,7 @@ a Java-based tool for automating builds, tests, and other processes.
 
 == Prerequisites
 
-We've provided a https://github.com/lenskit/eval-quickstart/tree/lk3[template] to help you get started.  This template contains an
+We've provided a https://github.com/lenskit/eval-quickstart[template] to help you get started.  This template contains an
 example Gradle file, algorithm definitions, and the bootstrap scripts to run Gradle.
 You can get the template either by cloning it with Git, or by downloading the source
 as a zip archive from GitHub.
