@@ -2,7 +2,7 @@
   "lenskitVersion": "3.0-M1",
   "plugins": ["mathjax", "apidoc"],
   "pluginsConfig": {
-    "apidoc": {
+    "apiurl": {
       "javadocBase": "https://mooc.lenskit.org/apidocs/"
     }
   }
