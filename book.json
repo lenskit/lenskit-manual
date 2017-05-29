@@ -3,7 +3,7 @@
   "plugins": ["mathjax", "apiurl"],
   "pluginsConfig": {
     "apiurl": {
-      "javadocBase": "https://mooc.lenskit.org/apidocs/"
+      "javadocBase": "https://lenskit.org/master/apidocs/"
     }
   }
 }
