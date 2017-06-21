@@ -1,0 +1,53 @@
+= Implicit Feedback
+
+Starting from version 3.0, LensKit provides support for handling _implicit feedback_, particularly unary or count data such as clicks, purchases, and play counts.
+
+== Proxy DAOs
+
+Since most LensKit components think in terms of ratings, the common way to make LensKit use non-rating data is to transform it into rating-like data.  Per-user ‘rating vectors’ do not need to be computed from actual explicit ratings; they can be computed or inferred by many means.
+
+LensKit abstracts this through the concept of a _proxy DAO_: a data access object that transforms data.  The link:api:org.lenskit.data.ratings.RatingVectorPDAO[RatingVectorPDAO] interface defines _rating vector proxy DAOs_; other LensKit components can use the proxy DAO to look up or stream user rating vectors.
+
+The default implementation retrieves a user's `rating` entities and converts them into a rating vector.  However, there are two additional built-in options, and you can also create your own:
+
+link:api:org.lenskit.data.ratings.EntityCountRatingVectorPDAO[EntityCountRatingVectorPDAO]::
+This PDAO retrieves entities of a particular type associated with the user, and counts how many appear for each item.  This is useful for things such as purchases.
+
+link:api:org.lenskit.data.ratings.CountSumRatingVectorPDAO[CountSumRatingVectorPDAO]::
+This PDAO retrieves entities of a particular type associated with the user, and sums up the values of the `count` integer attribute on the entities associated with each item.  This is useful for batched data such as song play counts.
+
+Both of these PDAOs do require that the entities to be counted or summed contain `user` and `item` long-valued attributes storing the user and item IDs, respectively.
+
+== Configuring the PDAO
+
+If you want to use `purchase` entities, each of which has user and item IDs, you can add the following to your algorithm configuration:
+
+[source,groovy]
+......
+bind RatingVectorPDAO to EntityCountRatingVectorPDAO
+set InteractionEntityType to EntityTypes.forName("purchase")
+......
+
+With this configuration, any LensKit component that uses a `RatingVectorPDAO` to look up user rating vectors will use the purchase-based vectors instead of rating-based vectors.
+
+== Configuring Algorithms
+
+Some algorithms need to be reconfigured in order to make use of implicit feedback data, as their default settings are not useful for those settings.  Common tweaks include:
+
+. Remove `BiasModel`s — the default rating-based bias computations are not effective for most unary settings.
+
+. Reconfigure neighborhood scorers — weighted averages do not work with 0–1 data, so neighborhood models need to be reconfigured.  For item-item, for example:
++
+[source,groovy]
+.....
+bind NeighborhoodScorer to SimilaritySumNeighborhoodScorer
+.....
++
+User-user requires a similar change:
++
+[source,groovy]
+.....
+bind UserNeighborhoodScorer to SimilaritySumUserNeighborhoodScorer
+.....
+
+. Reconfigure normalizers — mean normalization is often ineffective, so don't use it.  Use unit vector normalization or identity normalization instead.

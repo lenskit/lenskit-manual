@@ -11,6 +11,9 @@
 . link:components/index.adoc[Common Components]
 .. link:components/bias-models.adoc[Bias Models]
 
+. link:cookbook/index.adoc[Cookbook]
+.. link:cookbook/implicit-feedback.adoc[Implicit Feedback]
+
 . link:algorithms/index.adoc[Algorithms]
 .. link:algorithms/baselines.adoc[Baselines]
 
