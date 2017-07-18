@@ -1,0 +1,85 @@
+= Managing Evaluator Resource Usage
+
+LensKit experiments consume a good deal of system resources, particularly memory.  It is common to need to do some customization of LensKit's operation in order to work effectively with larger data sets.
+
+== The LensKit Task Model
+
+LensKit evaluations are made up of _jobs_, each of which evaluates a single algorithm configuration on a single data set.  Each partition output by the crossfolder counts as a separate data set.
+
+By default, the evaluator tries to parallelize as much as possible without restriction.  It also tries to share common recommender components between different agorithm configurations. While this allows for high-throughput evaluations, it also can use the most memory.
+
+LensKit parallelizes in three places:
+
+- Evaluation jobs can run in parallel.
+- Within a single evaluation, users can be evaluated in parallel.
+- Model-training code may support parallel executation within an evaluation job.
+
+All parallelism is done through a single fork-join thread pool, so that different portions of the process can fluidly make use of available CPU cores.
+
+== Configuring Parallel Execution
+
+There are two train-test properties (configurable in the link:./train-test.adoc[`TrainTest`] Gradle task) that control parallelism:
+
+`threadCount`::
+This controls the total number of simultaneous threads LensKit can use.  This is used to set the parallel task limit on the global fork-join pool.
+
+`parallelTasks`::
+This controls the number of simultaneous evaluation jobs LensKit will try to run.  More parallel tasks means more recommender models may be loaded into memory, so decreasing this is a good way to decrease the overall memory pressure.
+
+Both of these settings can be set in the configuration of a `TrainTest` Gradle task, e.g.
+
+[source,groovy]
+.....
+task trainTest(type: TrainTest) {
+    threadCount 16
+    parallelTasks 10
+    // ... more settings
+}
+.....
+
+In addition, the train-test evaluator can group jobs by data set and only run one data set's jobs at a time. This has the advantage of only having one data set loaded into memory at a time.  To do this, ‘isolate’ the data sets when adding them to the train-test task:
+
+[source,groovy]
+.....
+task trainTest(type: TrainTest) {
+    // ... settings
+    dataSet myCrossfold, isolate: true
+    // ... more settings
+}
+.....
+
+== Configuring the Java Heap
+
+On modern systems, Java usually defaults to a maximum heap size of 1/4 of the system's memory.  This is often not enough for a LensKit experiment, especially if you are wanting to make good use of a big machine.  The LensKit `maxMemory` setting controls the maximum Java heap size, using an option compatible with the Java `-Xmx` option:
+
+[source,groovy]
+.....
+maxMemory '12g'
+.....
+
+You should leave at least 1-4GB of system RAM free for the rest of the operating system and Java virtual machine; don't set this to your full system memory.
+
+== Decoupling Configuration
+
+Since thread counts and heap limits depend on a specific machine, we do not recommend hard-coding them in to your `build.gradle`.  Each of the resource limit controls is configurable via a Gradle project properties, and you can use Gradle properties to parameterize other parts of your experiment logic as well.
+
+To configure these, put lines like the following in a file `gradle.properties` that lives alongside your `build.gradle`:
+
+[source,properties]
+.....
+lenskit.maxMemory=12g
+lenskit.threadCount=0
+lenskit.parallelTasks=4
+.....
+
+Do not add `gradle.properties` to your version control, as it contains machine-specific settings.  It is good practice to list it in `.gitignore` to keep from accidentally including it.
+
+== Resource Tuning Strategy
+
+When debugging out-of-memory problems or general slow performance, we recommend trying the following, in order:
+
+1. Set the `maxMemory` limit to all but 1-4 GB of your machine's RAM (if you have sole use of the machine).
+2. Turn on data set isolation
+3. Decrease the parallel task count
+
+Reducing the thread count is unlikely to help much, as it does not decrease the number of data sets or models being processed at any particular time.

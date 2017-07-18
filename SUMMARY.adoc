@@ -23,6 +23,7 @@
 .. link:evaluator/data.adoc[Data Prep and Crossfolding]
 .. link:evaluator/train-test.adoc[Train-Test Evaluations]
 .. link:evaluator/metrics.adoc[Evaluation Metrics]
+.. link:evaluator/resource-usage.adoc[Resource Usage]
 
 .  link:reference/index.adoc[Reference]
 .. link:reference/data-manifest.adoc[Data Manifests]
