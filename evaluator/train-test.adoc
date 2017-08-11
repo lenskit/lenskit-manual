@@ -33,6 +33,7 @@ task evaluate(type: TrainTest, group: 'evaluate') {
 }
 .....
 
+[#input-data]
 == Input Data
 
 The input data sets for the evaluation are specified using `dataSet` directives.  The common way
@@ -51,6 +52,7 @@ dataSet {
 }
 .....
 
+[#output-files]
 == Output Files
 
 The output files are specified by the following options:
@@ -63,6 +65,7 @@ Detailed user-level statistics, such as the RMSE for each test user.  If omitted
 
 The evaluator can also output the predictions and recommendations generated; these options are discussed below.
 
+[#algorithms]
 == Algorithms
 
 Algorithms are specified using the `algorithm` directive. The algorithms themselves are defined in
