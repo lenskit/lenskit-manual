@@ -44,11 +44,11 @@ Measures normalized discounted cumulative gain of the test items ranked by predi
 their ratings (from the test set) as their utilities.  This turns nDCG into a rank effectiveness
 measure.  It takes two configuration parameters:
 
-    discount::
+    discount:::
     The discounting function to apply.  Can be `log2` for base-2 log (the default), `log(n)`
     for base-_n_ log, or `exp(α)` for half-life discounting with a half-life of α <<Breese 1998>>.
 
-    columnName::
+    columnName:::
     A name to use for the output column instead of ‘Predict.nDCG’.
 
 These metrics are implemented by classes in the link:api:org.lenskit.eval.traintest.predict[`org.lenskit.eval.traintest.predict`] package.

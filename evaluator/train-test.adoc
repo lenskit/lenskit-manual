@@ -134,11 +134,11 @@ Each task supports an `outputFile` option that specifies an output file for the 
 
 === Predict
 
-The predict task has no additional options other than its [metrics](../metrics/#predict).
+The predict task has no additional options other than its link:../metrics/#predict[metrics].
 
 === Recommend
 
-The recommend task, in addition to [metrics](../metrics/#topn), supports some further options:
+The recommend task, in addition to link:../metrics/#topn[metrics], supports some further options:
 
 `listSize`::
 The length of recommendation lists to compute.  Specify -1 to compute unlimited-length lists.
