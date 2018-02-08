@@ -32,6 +32,13 @@ The `train` and `test` keys can either be the names of files containing link:../
 
 In addition to `train` and `test`, individual data sets can have an `entity_types` key identifying one or more entity types that will be used as the user's test data.  The default is `rating`; this key can either have a string naming a single type, or an array of type names.
 
+If you have one of these files, you can add it directly as a data set in a train-test evaluation:
+
+[source,groovy]
+.....
+dataSet 'data-set.yml'
+.....
+
 == Single Set Case
 
 If the collection of data sets only has a single train-test pair, the `datasets` list is not required:
