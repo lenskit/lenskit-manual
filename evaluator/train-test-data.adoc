@@ -1,0 +1,51 @@
+= Data for Train-Test Experiments
+
+The easiest way to configure data for a train-test experiment is to use the crossfolder and register it as a `dataSet`, as in the first example in link:./train-test.adoc#basic-example[the train-test evaluator section].
+
+However, sometimes you need to prepare one or more data sets externally and register them for with the train-test evaluator.  An individual train-test pair can be registered by link:./train-test.adoc#manual-split[specifying their YAML files]:
+
+[source,groovy]
+.....
+dataSet {
+    trainSource 'train.yml'
+    testSource 'test.yml'
+}
+.....
+
+However, when generating many train-test splits this can be quite cumbersome.
+
+== Under the Hood
+
+The LensKit crossfolder communicates with the train-test evaluator by generating a YAML file that pulls together all of the train-test data, along with any other data, into a single file describing a set of data sets.  This file looks like:
+
+[source,yaml]
+....
+name: DataSetName
+datasets:
+- train: training-data-1.yml
+  test: test-data-1.yml
+- train: training-data-2.yml
+  test: test-data-2.yml
+....
+
+The `train` and `test` keys can either be the names of files containing link:../reference/data-manifest.adoc[data manifests], or they can be the actual data manfest itself as a YAML object.
+
+In addition to `train` and `test`, individual data sets can have an `entity_types` key identifying one or more entity types that will be used as the user's test data.  The default is `rating`; this key can either have a string naming a single type, or an array of type names.
+
+== Single Set Case
+
+If the collection of data sets only has a single train-test pair, the `datasets` list is not required:
+
+[source,yaml]
+....
+name: DataSetName
+train: training-data.yml
+test: test-data.yml
+....
+
+== Additional Settings
+
+In addition, the train-test specification can have the following keys:
+
+`isolate`::
+A boolean; set to `true` to instruct LensKit to operate on each data set separately. This can reduce memory consumption for large data sets.

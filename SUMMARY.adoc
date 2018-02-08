@@ -22,6 +22,7 @@
 .. link:evaluator/gradle.adoc[Working with the Gradle Plugin]
 .. link:evaluator/data.adoc[Data Prep and Crossfolding]
 .. link:evaluator/train-test.adoc[Train-Test Evaluations]
+.. link:evaluator/train-test-data.adoc[Train-Test Data]
 .. link:evaluator/metrics.adoc[Evaluation Metrics]
 .. link:evaluator/resource-usage.adoc[Resource Usage]
 

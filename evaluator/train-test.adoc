@@ -6,7 +6,7 @@ splits, usually produced by the crossfolder, and runs a set of algorithms over t
 
 Evaluations are controlled by the link:https://mooc.lenskit.org/gradle-docs/index.html?org/lenskit/gradle/TrainTest[TrainTest] Gradle task; you can configure it like so:
 
-[source,groovy]
+[source,groovy,#basic-example]
 .....
 /* Run the LensKit evaluation */
 task evaluate(type: TrainTest, group: 'evaluate') {
@@ -42,6 +42,7 @@ automatically configures the evaluation to run on the train-test pairs produced 
 task, and enrolls the crossfold task as a dependency for the train-test task so that Gradle will
 make sure to run them in the correct order.
 
+[[manual-split]]
 You can also specify manually-created train-test splits, using link:../reference/data-manifest.adoc[data manifests]:
 
 [source,groovy]
@@ -105,7 +106,7 @@ neighborhood sizes.  You can then use it in your `build.gradle`:
 
 [source,groovy]
 .....
-trainTest {
+task evaluate(type: TrainTest) {
     /* ... options ... */
     // no name is needed when using algorithm blocks
     algorithm 'item-item-nbr-sweep.groovy'
