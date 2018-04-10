@@ -16,11 +16,11 @@ as a zip archive from GitHub.
 
 In addition to the template, you will need:
 
--   Java 7 or later.
+-   Java 8 or later.
 -   A tool for analyzing the results.  We provide an example IPython notebook
     that uses Pandas and matplotlib.  If you do not yet have a scientific Python
     environment, https://www.continuum.io/downloads[Anaconda Python] is an easy-to-install distribution that
-    includes all the necessary pieces.
+    includes all the necessary pieces.  You can also use Excel or R.
 
 == Project Layout
 
