@@ -1,0 +1,56 @@
+= Sweeping Parameters
+
+One common use case for the LensKit evaluator is to do parameter sweeps to find good configurations for algorithms.  LensKit supports this through a couple of features:
+
+1. Algorithm configuration files are full Groovy files, and can use any Groovy syntax, including loops
+2. Algorithms can have abitrary _attributes_ associated with them to track things like parameter values, allowing you to make accuracy vs. value plots.
+
+== Prerequisites
+
+Create a LensKit experiment following the instructions in link:../quickstart.adoc[Getting Started].
+
+== Sweeping a Single Parameters
+
+As an example, let's sweep the neighborhood size parameter for the Item-Item recommender. In `algorithms/item-item.groovy` in the default experiment template, you can see one configuration for the item-item recommender.
+
+The key idea of a sweep is to use a `for` loop in an algorithm file to generate multiple algorithms, using the `algorithm` block.  Right now, our configuration files each describe a single algorithm; however, if you have one or more `algorithm` blocks in a configuration file, then it describes multiple algorithms.  There are a couple of things to note about this:
+
+- If you have an `algorithm` block, then the top-level configuration *does not* generate an algorithm configuration.
+- Configuration in the `algorithm` block inherits the top-level configuration settings.
+
+Put the following in `algorithms/item-item-sweep.groovy`:
+
+[source,groovy,sweep]
+.....
+import org.lenskit.bias.BiasModel
+import org.lenskit.bias.ItemBiasModel
+import org.lenskit.knn.NeighborhoodSize
+import org.lenskit.knn.item.ItemItemScorer
+import org.lenskit.transform.normalize.BiasUserVectorNormalizer
+import org.lenskit.transform.normalize.UserVectorNormalizer
+
+bind ItemScorer to ItemItemScorer
+bind UserVectorNormalizer to BiasUserVectorNormalizer
+within (UserVectorNormalizer) {
+    bind BiasModel to ItemBiasModel
+}
+
+for (n in [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100]) {
+    algorithm("ItemItem") {
+        attributes["NbrCount"] = n
+        set NeighborhoodSize to n
+    }
+}
+.....
+
+The `for` loop generates a new configuration for each neighborhood size; each algorithm has the name ‘ItemItem’, but will also have a column (in the output CSV files) ‘NbrCount’ that contains the neighborhood size for that configuration.
+
+Add the following line with the other `algorithm` lines in `build.gradle`:
+
+.....
+algorithm 'algorithms/item-item-sweep.groovy'
+.....
+
+If you run the `evalute` Gradle task, it will run the new experiment with the many variants on item-item.  Since the neighborhood size does not affect the model build process, it will also automatically build a single item-item model for each data set and reuse it across all neighborhood sizes.
+
+The `build/eval-results.csv` file will contain results for each of your algorithm variants; Excel PivotTables are good for analyzing the results if you do not want to write R or Python analysis code.

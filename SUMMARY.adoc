@@ -24,6 +24,7 @@
 .. link:evaluator/train-test.adoc[Train-Test Evaluations]
 .. link:evaluator/train-test-data.adoc[Train-Test Data]
 .. link:evaluator/metrics.adoc[Evaluation Metrics]
+.. link:evaluator/parameter-sweeps.adoc[Sweeping Parameters]
 .. link:evaluator/resource-usage.adoc[Resource Usage]
 
 .  link:reference/index.adoc[Reference]
